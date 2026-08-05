@@ -376,6 +376,42 @@ function initDesktop() {
 
     restoreSession();
     detectSystemTheme();
+    checkPWAInstallation();
+}
+
+// ---------- PWA INSTALLATION ----------
+function checkPWAInstallation() {
+    // Sprawdź, czy już jest zainstalowana jako PWA
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('CortexOS działa jako PWA!');
+        return;
+    }
+    
+    // Nasłuchuj na możliwość instalacji
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPrompt = e;
+        showToast('📲', 'Kliknij "Instaluj" na pulpicie aby zainstalować CortexOS!');
+    });
+}
+
+// ---------- INSTALL PWA ----------
+export async function installPWA() {
+    if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        const result = await window.deferredPrompt.userChoice;
+        if (result.outcome === 'accepted') {
+            showToast('✅', 'CortexOS zainstalowany!');
+            systemLog('info', 'PWA installed');
+        } else {
+            showToast('❌', 'Instalacja anulowana');
+        }
+        window.deferredPrompt = null;
+    } else {
+        showToast('ℹ️', 'Twoja przeglądarka nie obsługuje instalacji PWA');
+        // Alternatywnie otwórz instrukcję
+        window.open('https://github.com/twoja-nazwa/CortexOS', '_blank');
+    }
 }
 
 function installGlobalShortcuts() {
@@ -655,5 +691,6 @@ document.addEventListener('DOMContentLoaded', () => {
         importData,
         systemLog,
         getLogs,
+        installPWA,
     };
 });
