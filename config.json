@@ -1,37 +1,37 @@
-+{
-+    "name": "CortexOS",
-+    "version": "1.1.0",
-+    "description": "Professional browser-based operating system",
-+    "author": "CortexOS Team",
-+    "license": "MIT",
-+    "settings": {
-+        "theme": "ciemny",
-+        "wallpaper": "default",
-+        "language": "en",
-+        "password": "admin",
-+        "reduceMotion": false
-+    },
-+    "apps": [
-+        "notatnik",
-+        "eksplorator",
-+        "kalkulator",
-+        "rysunek",
-+        "terminal",
-+        "ustawienia",
-+        "pogoda",
-+        "kalendarz",
-+        "muzyka",
-+        "galeria",
-+        "snake",
-+        "quiz",
-+        "arkusz",
-+        "gra",
-+        "pliki",
-+        "przypomnienia"
-+    ],
-+    "quality": {
-+        "accessibility": true,
-+        "localFirstStorage": true,
-+        "moduleBasedApps": true
-+    }
-+}
+{
+    "name": "CortexOS",
+    "version": "1.1.0",
+    "description": "Professional browser-based operating system",
+    "author": "CortexOS Team",
+    "license": "MIT",
+    "settings": {
+        "theme": "ciemny",
+        "wallpaper": "default",
+        "language": "en",
+        "password": "admin",
+        "reduceMotion": false
+    },
+    "apps": [
+        "notatnik",
+        "eksplorator",
+        "kalkulator",
+        "rysunek",
+        "terminal",
+        "ustawienia",
+        "pogoda",
+        "kalendarz",
+        "muzyka",
+        "galeria",
+        "snake",
+        "quiz",
+        "arkusz",
+        "gra",
+        "pliki",
+        "przypomnienia"
+    ],
+    "quality": {
+        "accessibility": true,
+        "localFirstStorage": true,
+        "moduleBasedApps": true
+    }
+}
