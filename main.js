@@ -1,5 +1,5 @@
 // ============================================================
-// main.js – CortexOS Kernel (Ulepszona wersja)
+// main.js – CortexOS Kernel
 // ============================================================
 
 import { WindowManager } from './jadro/okna.js';
@@ -376,39 +376,6 @@ function initDesktop() {
 
     restoreSession();
     detectSystemTheme();
-    checkPWAInstallation();
-}
-
-// ---------- PWA INSTALLATION ----------
-function checkPWAInstallation() {
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-        console.log('CortexOS działa jako PWA!');
-        return;
-    }
-    
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        window.deferredPrompt = e;
-        showToast('📲', 'Kliknij "Instaluj" na pulpicie aby zainstalować CortexOS!');
-    });
-}
-
-// ---------- INSTALL PWA ----------
-export async function installPWA() {
-    if (window.deferredPrompt) {
-        window.deferredPrompt.prompt();
-        const result = await window.deferredPrompt.userChoice;
-        if (result.outcome === 'accepted') {
-            showToast('✅', 'CortexOS zainstalowany!');
-            systemLog('info', 'PWA installed');
-        } else {
-            showToast('❌', 'Instalacja anulowana');
-        }
-        window.deferredPrompt = null;
-    } else {
-        showToast('ℹ️', 'Kliknij przycisk instalacji w pasku adresu przeglądarki');
-        window.open('https://github.com/wctoileet67/CortexOS', '_blank');
-    }
 }
 
 function installGlobalShortcuts() {
@@ -646,17 +613,6 @@ export function importData(file) {
     reader.readAsText(file);
 }
 
-// ---------- SERVICE WORKER ----------
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/CortexOS/sw.js')
-        .then(registration => {
-            console.log('Service Worker registered:', registration);
-        })
-        .catch(error => {
-            console.error('Service Worker registration failed:', error);
-        });
-}
-
 // ---------- BOOT ----------
 document.addEventListener('DOMContentLoaded', () => {
     boot();
@@ -699,6 +655,5 @@ document.addEventListener('DOMContentLoaded', () => {
         importData,
         systemLog,
         getLogs,
-        installPWA,
     };
 });
