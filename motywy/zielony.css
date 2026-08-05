@@ -1,160 +1,156 @@
-diff --git a/motywy/zielony.css b/motywy/zielony.css
-index e8909356f1570736c796d52ad54dfa70736f834d..0092be77236924688a95f393cd4b5eafbf9d0843 100644
---- a/motywy/zielony.css
-+++ b/motywy/zielony.css
-@@ -1,75 +1,79 @@
--/* ============================================================
--   motywy/zielony.css – Green Theme
--   ============================================================ */
--
--:root {
--    --bg-primary: #0a1a0a;
--    --bg-secondary: #1a2a1a;
--    --bg-surface: #1a3a1a;
--    --bg-window: #0a1a0a;
--    --bg-taskbar: rgba(10, 26, 10, 0.92);
--    --bg-start: rgba(10, 26, 10, 0.97);
--    --text-primary: #d0e8d0;
--    --text-secondary: #8ab88a;
--    --text-light: #ffffff;
--    --accent: #66cc66;
--    --accent-hover: #88dd88;
--    --border-color: #1a3a1a;
--    --shadow: 0 8px 32px rgba(0, 30, 0, 0.6);
--    --window-title-bg: linear-gradient(135deg, #0a1a0a, #1a3a1a);
--    --scrollbar-track: #0a1a0a;
--    --scrollbar-thumb: #66cc66;
--}
--
--#wallpaper {
--    background: linear-gradient(135deg, #081a08, #0a2a0a, #1a4a1a) !important;
--}
--
--#loginScreen {
--    background: radial-gradient(ellipse at center, #0a1a0a, #081a08) !important;
--}
--
--.cortex-window .window-titlebar {
--    background: var(--window-title-bg) !important;
--}
--
--.calc-btn.op {
--    background: rgba(102, 204, 102, 0.15) !important;
--    color: #66cc66 !important;
--}
--.calc-btn.op:hover {
--    background: rgba(102, 204, 102, 0.3) !important;
--}
--
--.cal-grid .cal-day.today {
--    background: #66cc66 !important;
--    color: #0a1a0a !important;
--}
--
--.weather-wrap .weather-info .details div {
--    background: rgba(102, 204, 102, 0.06) !important;
--}
--
--.start-app-item:hover {
--    background: rgba(102, 204, 102, 0.1) !important;
--}
--
--.taskbar-window-btn.active {
--    background: #66cc66 !important;
--    color: #0a1a0a !important;
--}
--
--.terminal-wrap {
--    background: #0a1a0a !important;
--}
--.terminal-wrap .term-prompt {
--    color: #66cc66 !important;
--}
--
--.snake-game canvas {
--    background: #0a1a0a !important;
--}
--
--.snake-game .snake-score {
--    color: #66cc66 !important;
--}
-\ No newline at end of file
-+/* ============================================================
-+   motywy/zielony.css – Green Theme
-+   ============================================================ */
-+
-+:root {
-+    --bg-primary: #0a1a0a;
-+    --bg-secondary: #1a2a1a;
-+    --bg-surface: #1a3a1a;
-+    --bg-window: #0a1a0a;
-+    --bg-taskbar: rgba(10, 26, 10, 0.92);
-+    --bg-start: rgba(10, 26, 10, 0.97);
-+    --text-primary: #d0e8d0;
-+    --text-secondary: #8ab88a;
-+    --text-light: #ffffff;
-+    --accent: #66cc66;
-+    --accent-hover: #88dd88;
-+    --border-color: #1a3a1a;
-+    --shadow: 0 8px 32px rgba(0, 30, 0, 0.6);
-+    --window-title-bg: linear-gradient(135deg, #0a1a0a, #1a3a1a);
-+    --scrollbar-track: #0a1a0a;
-+    --scrollbar-thumb: #66cc66;
-+}
-+
-+#wallpaper {
-+    background: linear-gradient(135deg, #081a08, #0a2a0a, #1a4a1a) !important;
-+}
-+
-+#loginScreen {
-+    background: radial-gradient(ellipse at center, #0a1a0a, #081a08) !important;
-+}
-+
-+.cortex-window .window-titlebar {
-+    background: var(--window-title-bg) !important;
-+}
-+
-+.calc-btn.op {
-+    background: rgba(102, 204, 102, 0.15) !important;
-+    color: #66cc66 !important;
-+}
-+.calc-btn.op:hover {
-+    background: rgba(102, 204, 102, 0.3) !important;
-+}
-+
-+.cal-grid .cal-day.today {
-+    background: #66cc66 !important;
-+    color: #0a1a0a !important;
-+}
-+
-+.weather-wrap .weather-info .details div {
-+    background: rgba(102, 204, 102, 0.06) !important;
-+}
-+
-+.start-app-item:hover {
-+    background: rgba(102, 204, 102, 0.1) !important;
-+}
-+
-+.taskbar-window-btn.active {
-+    background: #66cc66 !important;
-+    color: #0a1a0a !important;
-+}
-+
-+.terminal-wrap {
-+    background: #0a1a0a !important;
-+}
-+.terminal-wrap .term-prompt {
-+    color: #66cc66 !important;
-+}
-+
-+.snake-game canvas {
-+    background: #0a1a0a !important;
-+}
-+
-+.snake-game .snake-score {
-+    color: #66cc66 !important;
-+}
-+/* Green theme polish */
-+:root {
-+    --focus-ring: #b6f5b6;
-+}
+
+/* ============================================================
+   motywy/zielony.css – Green Theme
+   ============================================================ */
+
+:root {
+    --bg-primary: #0a1a0a;
+    --bg-secondary: #1a2a1a;
+    --bg-surface: #1a3a1a;
+    --bg-window: #0a1a0a;
+    --bg-taskbar: rgba(10, 26, 10, 0.92);
+    --bg-start: rgba(10, 26, 10, 0.97);
+    --text-primary: #d0e8d0;
+    --text-secondary: #8ab88a;
+    --text-light: #ffffff;
+    --accent: #66cc66;
+    --accent-hover: #88dd88;
+    --border-color: #1a3a1a;
+    --shadow: 0 8px 32px rgba(0, 30, 0, 0.6);
+    --window-title-bg: linear-gradient(135deg, #0a1a0a, #1a3a1a);
+    --scrollbar-track: #0a1a0a;
+    --scrollbar-thumb: #66cc66;
+}
+
+#wallpaper {
+    background: linear-gradient(135deg, #081a08, #0a2a0a, #1a4a1a) !important;
+}
+
+#loginScreen {
+    background: radial-gradient(ellipse at center, #0a1a0a, #081a08) !important;
+}
+
+.cortex-window .window-titlebar {
+    background: var(--window-title-bg) !important;
+}
+
+.calc-btn.op {
+    background: rgba(102, 204, 102, 0.15) !important;
+    color: #66cc66 !important;
+}
+.calc-btn.op:hover {
+    background: rgba(102, 204, 102, 0.3) !important;
+}
+
+.cal-grid .cal-day.today {
+    background: #66cc66 !important;
+    color: #0a1a0a !important;
+}
+
+.weather-wrap .weather-info .details div {
+    background: rgba(102, 204, 102, 0.06) !important;
+}
+
+.start-app-item:hover {
+    background: rgba(102, 204, 102, 0.1) !important;
+}
+
+.taskbar-window-btn.active {
+    background: #66cc66 !important;
+    color: #0a1a0a !important;
+}
+
+.terminal-wrap {
+    background: #0a1a0a !important;
+}
+.terminal-wrap .term-prompt {
+    color: #66cc66 !important;
+}
+
+.snake-game canvas {
+    background: #0a1a0a !important;
+}
+
+.snake-game .snake-score {
+    color: #66cc66 !important;
+}
+ No newline at end of file
+/* ============================================================
+   motywy/zielony.css – Green Theme
+   ============================================================ */
+
+:root {
+    --bg-primary: #0a1a0a;
+    --bg-secondary: #1a2a1a;
+    --bg-surface: #1a3a1a;
+    --bg-window: #0a1a0a;
+    --bg-taskbar: rgba(10, 26, 10, 0.92);
+    --bg-start: rgba(10, 26, 10, 0.97);
+    --text-primary: #d0e8d0;
+    --text-secondary: #8ab88a;
+    --text-light: #ffffff;
+    --accent: #66cc66;
+    --accent-hover: #88dd88;
+    --border-color: #1a3a1a;
+    --shadow: 0 8px 32px rgba(0, 30, 0, 0.6);
+    --window-title-bg: linear-gradient(135deg, #0a1a0a, #1a3a1a);
+    --scrollbar-track: #0a1a0a;
+    --scrollbar-thumb: #66cc66;
+}
+
+#wallpaper {
+    background: linear-gradient(135deg, #081a08, #0a2a0a, #1a4a1a) !important;
+}
+
+#loginScreen {
+    background: radial-gradient(ellipse at center, #0a1a0a, #081a08) !important;
+}
+
+.cortex-window .window-titlebar {
+    background: var(--window-title-bg) !important;
+}
+
+.calc-btn.op {
+    background: rgba(102, 204, 102, 0.15) !important;
+    color: #66cc66 !important;
+}
+.calc-btn.op:hover {
+    background: rgba(102, 204, 102, 0.3) !important;
+}
+
+.cal-grid .cal-day.today {
+    background: #66cc66 !important;
+    color: #0a1a0a !important;
+}
+
+.weather-wrap .weather-info .details div {
+    background: rgba(102, 204, 102, 0.06) !important;
+}
+
+.start-app-item:hover {
+    background: rgba(102, 204, 102, 0.1) !important;
+}
+
+.taskbar-window-btn.active {
+    background: #66cc66 !important;
+    color: #0a1a0a !important;
+}
+
+.terminal-wrap {
+    background: #0a1a0a !important;
+}
+.terminal-wrap .term-prompt {
+    color: #66cc66 !important;
+}
+
+.snake-game canvas {
+    background: #0a1a0a !important;
+}
+
+.snake-game .snake-score {
+    color: #66cc66 !important;
+}
+/* Green theme polish */
+:root {
+    --focus-ring: #b6f5b6;
+}
