@@ -73,66 +73,92 @@ export default function Settings() {
 
     container.append(themeGroup, wallGroup, pwdGroup, langGroup, infoGroup);
 
-    // Event handlers
-    document.getElementById('settingsTheme').addEventListener('change', (e) => {
-        SystemSettings.set('theme', e.target.value);
-    });
+    // ⚠️ WAŻNE: Event listenery dodajemy DOPIERO PO tym, jak elementy są w DOM
+    // Używamy container.querySelector zamiast document.getElementById
+    // lub opóźniamy dodanie event listenerów
 
-    document.getElementById('settingsWallpaper').addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                const dataUrl = ev.target.result;
-                SystemSettings.set('wallpaper', dataUrl);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    // Rozwiązanie 1: Użycie container.querySelector (polecane)
+    const themeSelect = container.querySelector('#settingsTheme');
+    if (themeSelect) {
+        themeSelect.addEventListener('change', (e) => {
+            SystemSettings.set('theme', e.target.value);
+        });
+    }
 
-    document.getElementById('resetWallpaperBtn').addEventListener('click', () => {
-        SystemSettings.set('wallpaper', 'default');
-        const wall = document.getElementById('wallpaper');
-        wall.style.backgroundImage =
-            'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
-        wall.style.backgroundSize = 'cover';
-        showToast('🖼️', 'Wallpaper reset to default');
-    });
+    const wallpaperInput = container.querySelector('#settingsWallpaper');
+    if (wallpaperInput) {
+        wallpaperInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const dataUrl = ev.target.result;
+                    SystemSettings.set('wallpaper', dataUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
-    document.getElementById('settingsSetPassword').addEventListener('click', () => {
-        const input = document.getElementById('settingsNewPassword');
-        const val = input.value.trim();
-        if (val) {
-            SystemSettings.set('password', val);
-            input.value = '';
-            showToast('🔒', 'Password updated!');
-        } else {
-            showToast('⚠️', 'Password cannot be empty');
-        }
-    });
+    const resetWallpaperBtn = container.querySelector('#resetWallpaperBtn');
+    if (resetWallpaperBtn) {
+        resetWallpaperBtn.addEventListener('click', () => {
+            SystemSettings.set('wallpaper', 'default');
+            const wall = document.getElementById('wallpaper');
+            if (wall) {
+                wall.style.backgroundImage =
+                    'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
+                wall.style.backgroundSize = 'cover';
+            }
+            showToast('🖼️', 'Wallpaper reset to default');
+        });
+    }
 
-    document.getElementById('settingsLanguage').addEventListener('change', (e) => {
-        SystemSettings.set('language', e.target.value);
-    });
-
-    document.getElementById('resetSettingsBtn').addEventListener('click', () => {
-        if (confirm('Reset all settings to default?')) {
-            SystemSettings.reset();
-            // Reload settings display
-            const newSettings = SystemSettings.get();
-            document.getElementById('settingsTheme').value = newSettings.theme;
-            document.getElementById('settingsLanguage').value = newSettings.language;
-            const info = document.querySelector('.setting-info');
-            if (info) {
-                const divs = infoGroup.querySelectorAll('.setting-info');
-                if (divs.length > 2) {
-                    divs[2].textContent = `Theme: ${newSettings.theme}`;
-                    divs[3].textContent = `Language: ${newSettings.language}`;
+    const setPasswordBtn = container.querySelector('#settingsSetPassword');
+    if (setPasswordBtn) {
+        setPasswordBtn.addEventListener('click', () => {
+            const input = container.querySelector('#settingsNewPassword');
+            if (input) {
+                const val = input.value.trim();
+                if (val) {
+                    SystemSettings.set('password', val);
+                    input.value = '';
+                    showToast('🔒', 'Password updated!');
+                } else {
+                    showToast('⚠️', 'Password cannot be empty');
                 }
             }
-            showToast('🔄', 'Settings reset to default');
-        }
-    });
+        });
+    }
+
+    const languageSelect = container.querySelector('#settingsLanguage');
+    if (languageSelect) {
+        languageSelect.addEventListener('change', (e) => {
+            SystemSettings.set('language', e.target.value);
+        });
+    }
+
+    const resetBtn = container.querySelector('#resetSettingsBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Reset all settings to default?')) {
+                SystemSettings.reset();
+                // Reload settings display - odświeżamy UI
+                const newSettings = SystemSettings.get();
+                const themeSel = container.querySelector('#settingsTheme');
+                if (themeSel) themeSel.value = newSettings.theme;
+                const langSel = container.querySelector('#settingsLanguage');
+                if (langSel) langSel.value = newSettings.language;
+                // Aktualizacja info
+                const infoDivs = infoGroup.querySelectorAll('.setting-info');
+                if (infoDivs.length >= 4) {
+                    infoDivs[2].textContent = `Theme: ${newSettings.theme}`;
+                    infoDivs[3].textContent = `Language: ${newSettings.language}`;
+                }
+                showToast('🔄', 'Settings reset to default');
+            }
+        });
+    }
 
     return container;
 }
