@@ -10,7 +10,7 @@
     "categories": ["productivity", "utilities"],
     "icons": [
         {
-            "src": "brain-brainstorm-creative-svgrepo-com.svg",
+            "src": "ikonka/brain-brainstorm-creative-svgrepo-com.svg",
             "sizes": "512x512",
             "type": "image/svg+xml",
             "purpose": "any"
