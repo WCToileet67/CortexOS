@@ -1,1 +1,7 @@
 AddType application/javascript .js
+AddType image/svg+xml .svg
+AddType text/css .css
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
