@@ -694,3 +694,14 @@ document.addEventListener('DOMContentLoaded', () => {
         installPWA,
     };
 });
+
+// ---------- SERVICE WORKER ----------
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/CortexOS/sw.js')
+        .then(registration => {
+            console.log('Service Worker registered:', registration);
+        })
+        .catch(error => {
+            console.error('Service Worker registration failed:', error);
+        });
+}
