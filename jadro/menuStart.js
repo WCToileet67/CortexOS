@@ -10,6 +10,8 @@ let searchTerm = '';
 export const StartMenu = {
     init() {
         const menu = document.getElementById('startMenu');
+        menu.setAttribute('role', 'dialog');
+        menu.setAttribute('aria-label', 'Start menu');
         const search = document.getElementById('startSearch');
         const pinnedList = document.getElementById('startPinnedList');
         const appList = document.getElementById('startAppList');

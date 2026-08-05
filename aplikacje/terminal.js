@@ -5,6 +5,8 @@
 export default function Terminal() {
     const container = document.createElement('div');
     container.className = 'terminal-wrap';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Terminal');
     container.style.cssText =
         'background:#0a0a0a;border-radius:4px;padding:8px;font-family:monospace;color:#0f0;min-height:300px;max-height:400px;overflow-y:auto;';
 

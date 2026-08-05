@@ -5,6 +5,8 @@
 export default function Snake() {
     const container = document.createElement('div');
     container.className = 'snake-game';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Snake');
 
     const scoreDisplay = document.createElement('div');
     scoreDisplay.className = 'snake-score';

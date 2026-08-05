@@ -5,6 +5,8 @@
 export default function Weather() {
     const container = document.createElement('div');
     container.className = 'weather-wrap';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Weather');
 
     const search = document.createElement('div');
     search.className = 'weather-search';

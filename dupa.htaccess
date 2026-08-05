@@ -1,1 +1,10 @@
+DirectoryIndex index.html
 AddType application/javascript .js
+AddType image/svg+xml .svg
+AddType text/css .css
+AddType application/manifest+json .webmanifest
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>

@@ -5,6 +5,8 @@
 export default function Gallery() {
     const container = document.createElement('div');
     container.style.cssText = 'padding:8px;';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Gallery');
 
     let images = [];
 

@@ -58,3 +58,7 @@
     background: #4fc3f7 !important;
     color: #0d1b2a !important;
 }
+/* Blue theme polish */
+:root {
+    --focus-ring: #b3e5fc;
+}

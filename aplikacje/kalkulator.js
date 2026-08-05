@@ -5,6 +5,8 @@
 export default function Calculator() {
     const container = document.createElement('div');
     container.style.cssText = 'padding:8px;max-width:340px;margin:0 auto;';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Scientific Calculator');
 
     const display = document.createElement('div');
     display.className = 'calc-display';

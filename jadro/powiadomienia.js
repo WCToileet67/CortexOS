@@ -17,6 +17,10 @@ export const NotificationManager = {
             }
         } catch (_) { /* ignore */ }
 
+        const center = document.getElementById('notifCenter');
+        center.setAttribute('role', 'dialog');
+        center.setAttribute('aria-label', 'Notification center');
+
         this.renderCenter();
 
         // Close on outside click

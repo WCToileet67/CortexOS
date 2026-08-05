@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CortexOS</title>
+    <meta name="description" content="CortexOS — lekki, przeglądarkowy pulpit z aplikacjami, motywami i lokalnym zapisem danych." />
+    <meta name="theme-color" content="#1a1a2e" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="brain-brainstorm-creative-svgrepo-com.svg" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/svg+xml" href="brain-brainstorm-creative-svgrepo-com.svg">
 </head>
@@ -46,7 +50,7 @@
 
         <!-- Taskbar -->
         <div id="taskbar">
-            <button id="startBtn">Start</button>
+            <button id="startBtn" type="button" aria-haspopup="true" aria-controls="startMenu">Start</button>
             <div id="taskbarWindows"></div>
             <div id="taskbarTray">
                 <span id="notifIcon">🔔</span>
@@ -101,5 +105,14 @@
         }
     </script>
     <script type="module" src="main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(() => {
+                    // CortexOS still works without offline caching.
+                });
+            });
+        }
+    </script>
 </body>
 </html>

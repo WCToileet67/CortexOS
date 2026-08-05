@@ -5,6 +5,8 @@
 export default function Notepad(params, winEl) {
     const container = document.createElement('div');
     container.style.cssText = 'display:flex;flex-direction:column;height:100%;gap:8px;';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Notepad');
 
     const toolbar = document.createElement('div');
     toolbar.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;';

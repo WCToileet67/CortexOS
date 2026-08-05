@@ -29,6 +29,7 @@ export const SystemSettings = {
             }
         }
         showToast('⚙️', `Settings updated: ${key}`);
+        document.dispatchEvent(new CustomEvent('cortexos:settings-changed', { detail: { key, value } }));
     },
 
     reset() {

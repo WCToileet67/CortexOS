@@ -1,6 +1,6 @@
 {
     "name": "CortexOS",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "description": "Professional browser-based operating system",
     "author": "CortexOS Team",
     "license": "MIT",
@@ -8,7 +8,8 @@
         "theme": "ciemny",
         "wallpaper": "default",
         "language": "en",
-        "password": "admin"
+        "password": "admin",
+        "reduceMotion": false
     },
     "apps": [
         "notatnik",
@@ -23,6 +24,21 @@
         "galeria",
         "snake",
         "quiz",
-        "arkusz"
-    ]
+        "arkusz",
+        "gra",
+        "pliki",
+        "przypomnienia"
+    ],
+    "quality": {
+        "accessibility": true,
+        "localFirstStorage": true,
+        "moduleBasedApps": true,
+        "offlineReady": true
+    },
+    "deployment": {
+        "type": "static",
+        "entry": "index.html",
+        "serviceWorker": "sw.js",
+        "manifest": "manifest.webmanifest"
+    }
 }

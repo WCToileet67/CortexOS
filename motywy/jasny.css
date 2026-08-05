@@ -172,3 +172,7 @@
 .cal-grid .cal-day.other-month {
     color: #a0a0b8 !important;
 }
+/* Higher-contrast focus ring for light mode */
+:root {
+    --focus-ring: #0b57d0;
+}

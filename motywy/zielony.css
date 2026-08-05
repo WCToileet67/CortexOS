@@ -73,3 +73,7 @@
 .snake-game .snake-score {
     color: #66cc66 !important;
 }
+/* Green theme polish */
+:root {
+    --focus-ring: #b6f5b6;
+}

@@ -117,6 +117,13 @@ export const APP_REGISTRY = {
         module: () => import('./aplikacje/pliki.js'),
         pinned: false,
     },
+    przypomnienia: {
+        id: 'przypomnienia',
+        name: 'Reminders',
+        icon: '⏰',
+        module: () => import('./aplikacje/przypomnienia.js'),
+        pinned: true,
+    },
 };
 
 // ---------- CORE STATE ----------
@@ -129,10 +136,13 @@ export const Core = {
         wallpaper: 'default',
         language: 'en',
         password: 'admin',
+        reduceMotion: false,
     },
     booted: false,
     loggedIn: false,
     sessionTimer: null,
+    clockTimer: null,
+    initialized: false,
     lastActivity: Date.now(),
 };
 
@@ -306,15 +316,26 @@ export function applyTheme(themeName) {
 export function showToast(icon, message, duration = 3000) {
     const container = document.getElementById('toastContainer');
     if (!container) return;
-    
+
     const toast = document.createElement('div');
     toast.className = 'toast';
-    toast.innerHTML = `
-        <span class="toast-icon">${icon}</span>
-        <span class="toast-msg">${message}</span>
-        <button class="toast-close">✕</button>
-    `;
-    toast.querySelector('.toast-close').addEventListener('click', () => {
+
+    const iconEl = document.createElement('span');
+    iconEl.className = 'toast-icon';
+    iconEl.textContent = icon;
+
+    const messageEl = document.createElement('span');
+    messageEl.className = 'toast-msg';
+    messageEl.textContent = message;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast-close';
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Close notification');
+    closeBtn.textContent = '✕';
+
+    toast.append(iconEl, messageEl, closeBtn);
+    closeBtn.addEventListener('click', () => {
         toast.remove();
     });
     container.appendChild(toast);
@@ -343,21 +364,30 @@ function initDesktop() {
         wall.style.backgroundSize = 'cover';
     }
 
-    // Init modules
-    Desktop.init();
-    Taskbar.init();
-    StartMenu.init();
-    WindowManager.init();
-    NotificationManager.init();
+    // Init modules once per page load to avoid duplicate event listeners after logout/login.
+    if (!Core.initialized) {
+        Desktop.init();
+        Taskbar.init();
+        StartMenu.init();
+        WindowManager.init();
+        NotificationManager.init();
+        installGlobalShortcuts();
+        Core.initialized = true;
+    }
 
     // Clock
     updateClock();
-    setInterval(updateClock, 1000);
+    clearInterval(Core.clockTimer);
+    Core.clockTimer = setInterval(updateClock, 1000);
 
     // Restore session
     restoreSession();
 
-    // Global key shortcuts
+    // Detect system theme
+    detectSystemTheme();
+}
+
+function installGlobalShortcuts() {
     document.addEventListener('keydown', (e) => {
         // Ctrl+Shift+Esc -> terminal
         if (e.ctrlKey && e.shiftKey && e.key === 'Escape') {
@@ -400,9 +430,6 @@ function initDesktop() {
             logout();
         }
     });
-
-    // Detect system theme
-    detectSystemTheme();
 }
 
 function updateClock() {
@@ -645,12 +672,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Expose global for console debugging
-    window.__cortex = { 
-        Core, 
-        launchApp, 
-        shutdown, 
-        restart, 
-        showToast, 
+    window.__cortex = {
+        Core,
+        launchApp,
+        shutdown,
+        restart,
+        showToast,
         logout,
         exportData,
         importData,

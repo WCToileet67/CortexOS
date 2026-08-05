@@ -5,6 +5,8 @@
 export default function Quiz() {
     const container = document.createElement('div');
     container.className = 'quiz-wrap';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Quiz');
 
     const questions = [{
         q: 'What is the capital of France?',

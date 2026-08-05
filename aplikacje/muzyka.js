@@ -5,6 +5,8 @@
 export default function Music() {
     const container = document.createElement('div');
     container.className = 'music-player';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Music Player');
 
     let playlist = [];
     let currentIndex = -1;

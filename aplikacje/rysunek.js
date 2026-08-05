@@ -5,6 +5,8 @@
 export default function Paint() {
     const container = document.createElement('div');
     container.className = 'paint-canvas-wrap';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Paint');
 
     const tools = document.createElement('div');
     tools.className = 'paint-tools';

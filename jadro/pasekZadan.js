@@ -9,6 +9,8 @@ let windowButtons = {};
 export const Taskbar = {
     init() {
         const startBtn = document.getElementById('startBtn');
+        startBtn.setAttribute('aria-label', 'Open Start menu');
+        document.getElementById('taskbar').setAttribute('role', 'toolbar');
         startBtn.addEventListener('click', () => {
             import('./menuStart.js').then(({ StartMenu }) => {
                 StartMenu.toggle();

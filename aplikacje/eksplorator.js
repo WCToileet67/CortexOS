@@ -5,6 +5,8 @@
 export default function Explorer(params, winEl) {
     const container = document.createElement('div');
     container.style.cssText = 'display:flex;flex-direction:column;height:100%;gap:8px;';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'File Explorer');
 
     // Virtual file system (in localStorage)
     const FS_KEY = 'cortexos_fs';

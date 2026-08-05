@@ -6,6 +6,8 @@
 export default function Spreadsheet() {
     const container = document.createElement('div');
     container.className = 'spreadsheet-wrap';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Spreadsheet');
 
     const toolbar = document.createElement('div');
     toolbar.className = 'spreadsheet-toolbar';

@@ -30,6 +30,8 @@ export const WindowManager = {
         // Create window element
         const el = document.createElement('div');
         el.className = 'cortex-window';
+        el.setAttribute('role', 'dialog');
+        el.setAttribute('aria-label', title);
         el.dataset.winId = winId;
         el.style.width = width + 'px';
         el.style.height = height + 'px';

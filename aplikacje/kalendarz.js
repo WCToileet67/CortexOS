@@ -5,6 +5,8 @@
 export default function Calendar() {
     const container = document.createElement('div');
     container.style.cssText = 'padding:8px;max-width:480px;margin:0 auto;';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Calendar');
 
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();

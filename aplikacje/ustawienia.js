@@ -8,6 +8,8 @@ import { showToast } from '../main.js';
 export default function Settings() {
     const container = document.createElement('div');
     container.style.cssText = 'padding:8px;max-width:480px;margin:0 auto;';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Settings');
 
     const settings = SystemSettings.get();
 

@@ -7,12 +7,14 @@ import { showToast } from '../main.js';
 export default function Gra() {
     const container = document.createElement('div');
     container.className = 'game-area';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Guess Number');
     container.style.cssText = 'padding:16px;max-width:400px;margin:0 auto;';
-    
+
     let secret = Math.floor(Math.random() * 100) + 1;
     let attempts = 0;
     let bestScore = parseInt(localStorage.getItem('cortexos-game-best') || '999');
-    
+
     container.innerHTML = `
         <h3 style="margin-bottom:12px;">🎯 Zgadnij liczbę 1–100</h3>
         <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;">
@@ -25,7 +27,7 @@ export default function Gra() {
         <div id="gameStats" style="margin-top:4px;font-size:13px;color:var(--text-secondary);">Próby: 0</div>
         <button id="gameReset" style="width:100%;padding:8px;margin-top:8px;border:1px solid var(--border-color);border-radius:4px;background:transparent;color:var(--text-primary);cursor:pointer;">🔄 Nowa gra</button>
     `;
-    
+
     const input = container.querySelector('#gameInput');
     const btn = container.querySelector('#gameBtn');
     const fb = container.querySelector('#gameFeedback');
@@ -52,7 +54,7 @@ export default function Gra() {
         }
         attempts++;
         stats.textContent = 'Próby: ' + attempts;
-        
+
         if (guess === secret) {
             fb.textContent = `🎉 BRAWO! Zgadłeś w ${attempts} próbach!`;
             fb.style.color = '#5cb878';
@@ -74,11 +76,11 @@ export default function Gra() {
     }
 
     btn.addEventListener('click', checkGuess);
-    input.addEventListener('keydown', (e) => { 
-        if (e.key === 'Enter') checkGuess(); 
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkGuess();
     });
     resetBtn.addEventListener('click', resetGame);
-    
+
     setTimeout(() => input.focus(), 300);
     return container;
 }

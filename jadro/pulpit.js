@@ -16,6 +16,8 @@ export const Desktop = {
 
     renderIcons() {
         const container = document.getElementById('desktopIcons');
+        container.setAttribute('role', 'list');
+        container.setAttribute('aria-label', 'Desktop applications');
         container.innerHTML = '';
 
         const apps = Object.values(APP_REGISTRY);
