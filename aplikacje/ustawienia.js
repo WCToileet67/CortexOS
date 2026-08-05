@@ -73,8 +73,11 @@ export default function Settings() {
 
     container.append(themeGroup, wallGroup, pwdGroup, langGroup, infoGroup);
 
-    // ✅ UŻYWAJ container.querySelector ZAMIAST document.getElementById
-    // Theme
+    // ============================================================
+    // WSZYSTKIE EVENT LISTENERY - używamy container.querySelector
+    // ============================================================
+
+    // 1. Theme
     const themeSelect = container.querySelector('#settingsTheme');
     if (themeSelect) {
         themeSelect.addEventListener('change', (e) => {
@@ -82,7 +85,7 @@ export default function Settings() {
         });
     }
 
-    // Wallpaper upload
+    // 2. Wallpaper upload
     const wallpaperInput = container.querySelector('#settingsWallpaper');
     if (wallpaperInput) {
         wallpaperInput.addEventListener('change', (e) => {
@@ -98,7 +101,7 @@ export default function Settings() {
         });
     }
 
-    // Reset wallpaper
+    // 3. Reset wallpaper
     const resetWallpaperBtn = container.querySelector('#resetWallpaperBtn');
     if (resetWallpaperBtn) {
         resetWallpaperBtn.addEventListener('click', () => {
@@ -113,7 +116,7 @@ export default function Settings() {
         });
     }
 
-    // Set password
+    // 4. Set password
     const setPasswordBtn = container.querySelector('#settingsSetPassword');
     if (setPasswordBtn) {
         setPasswordBtn.addEventListener('click', () => {
@@ -131,7 +134,7 @@ export default function Settings() {
         });
     }
 
-    // Language
+    // 5. Language
     const languageSelect = container.querySelector('#settingsLanguage');
     if (languageSelect) {
         languageSelect.addEventListener('change', (e) => {
@@ -139,7 +142,7 @@ export default function Settings() {
         });
     }
 
-    // Reset all settings
+    // 6. Reset all settings
     const resetBtn = container.querySelector('#resetSettingsBtn');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
@@ -151,7 +154,6 @@ export default function Settings() {
                 if (themeSel) themeSel.value = newSettings.theme;
                 const langSel = container.querySelector('#settingsLanguage');
                 if (langSel) langSel.value = newSettings.language;
-                // Aktualizacja info
                 const infoDivs = infoGroup.querySelectorAll('.setting-info');
                 if (infoDivs.length >= 4) {
                     infoDivs[2].textContent = `Theme: ${newSettings.theme}`;
