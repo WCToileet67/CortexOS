@@ -219,4 +219,8 @@ export const Desktop = {
         icons.forEach((icon) => {
             const id = icon.dataset.appId;
             const rect = icon.getBoundingClientRect();
-            positions[id] = {
+            positions[id] = { x: rect.left, y: rect.top };
+        });
+        localStorage.setItem('cortexos_icons', JSON.stringify(positions));
+    },
+};
