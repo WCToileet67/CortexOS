@@ -1,8 +1,3 @@
-diff --git a/main.js b/main.js
-index f1f9c42e83a7a82ef1b1ed38806e8a0dd6d64b75..0c9c08ee0208f3955ce7cd7aec30e56592c05587 100644
---- a/main.js
-+++ b/main.js
-@@ -1,660 +1,687 @@
 -// ============================================================
 -// main.js – CortexOS Kernel (Ulepszona wersja)
 -// ============================================================
