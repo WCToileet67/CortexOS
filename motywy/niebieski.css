@@ -1,60 +1,130 @@
-/* ============================================================
-   motywy/niebieski.css – Blue Theme
-   ============================================================ */
-
-:root {
-    --bg-primary: #0d1b2a;
-    --bg-secondary: #1b2a4a;
-    --bg-surface: #1a3a6a;
-    --bg-window: #0d1b2a;
-    --bg-taskbar: rgba(13, 27, 42, 0.92);
-    --bg-start: rgba(13, 27, 42, 0.97);
-    --text-primary: #e0e8f0;
-    --text-secondary: #8ab4f8;
-    --text-light: #ffffff;
-    --accent: #4fc3f7;
-    --accent-hover: #81d4fa;
-    --border-color: #1a3a6a;
-    --shadow: 0 8px 32px rgba(0, 20, 60, 0.6);
-    --window-title-bg: linear-gradient(135deg, #0d1b2a, #1a3a6a);
-    --scrollbar-track: #0d1b2a;
-    --scrollbar-thumb: #4fc3f7;
-}
-
-#wallpaper {
-    background: linear-gradient(135deg, #0a1628, #0d1b2a, #1a3a6a) !important;
-}
-
-#loginScreen {
-    background: radial-gradient(ellipse at center, #0d1b2a, #0a1628) !important;
-}
-
-.cortex-window .window-titlebar {
-    background: var(--window-title-bg) !important;
-}
-
-.calc-btn.op {
-    background: rgba(79, 195, 247, 0.15) !important;
-    color: #4fc3f7 !important;
-}
-.calc-btn.op:hover {
-    background: rgba(79, 195, 247, 0.3) !important;
-}
-
-.cal-grid .cal-day.today {
-    background: #4fc3f7 !important;
-    color: #0d1b2a !important;
-}
-
-.weather-wrap .weather-info .details div {
-    background: rgba(79, 195, 247, 0.06) !important;
-}
-
-.start-app-item:hover {
-    background: rgba(79, 195, 247, 0.1) !important;
-}
-
-.taskbar-window-btn.active {
-    background: #4fc3f7 !important;
-    color: #0d1b2a !important;
-}
+diff --git a/motywy/niebieski.css b/motywy/niebieski.css
+index 819504af043b24c8369c0cd3cb465204e3735753..1ee5eec3fb93bac1f86e7c0a364c24bf193bbca1 100644
+--- a/motywy/niebieski.css
++++ b/motywy/niebieski.css
+@@ -1,60 +1,64 @@
+-/* ============================================================
+-   motywy/niebieski.css – Blue Theme
+-   ============================================================ */
+-
+-:root {
+-    --bg-primary: #0d1b2a;
+-    --bg-secondary: #1b2a4a;
+-    --bg-surface: #1a3a6a;
+-    --bg-window: #0d1b2a;
+-    --bg-taskbar: rgba(13, 27, 42, 0.92);
+-    --bg-start: rgba(13, 27, 42, 0.97);
+-    --text-primary: #e0e8f0;
+-    --text-secondary: #8ab4f8;
+-    --text-light: #ffffff;
+-    --accent: #4fc3f7;
+-    --accent-hover: #81d4fa;
+-    --border-color: #1a3a6a;
+-    --shadow: 0 8px 32px rgba(0, 20, 60, 0.6);
+-    --window-title-bg: linear-gradient(135deg, #0d1b2a, #1a3a6a);
+-    --scrollbar-track: #0d1b2a;
+-    --scrollbar-thumb: #4fc3f7;
+-}
+-
+-#wallpaper {
+-    background: linear-gradient(135deg, #0a1628, #0d1b2a, #1a3a6a) !important;
+-}
+-
+-#loginScreen {
+-    background: radial-gradient(ellipse at center, #0d1b2a, #0a1628) !important;
+-}
+-
+-.cortex-window .window-titlebar {
+-    background: var(--window-title-bg) !important;
+-}
+-
+-.calc-btn.op {
+-    background: rgba(79, 195, 247, 0.15) !important;
+-    color: #4fc3f7 !important;
+-}
+-.calc-btn.op:hover {
+-    background: rgba(79, 195, 247, 0.3) !important;
+-}
+-
+-.cal-grid .cal-day.today {
+-    background: #4fc3f7 !important;
+-    color: #0d1b2a !important;
+-}
+-
+-.weather-wrap .weather-info .details div {
+-    background: rgba(79, 195, 247, 0.06) !important;
+-}
+-
+-.start-app-item:hover {
+-    background: rgba(79, 195, 247, 0.1) !important;
+-}
+-
+-.taskbar-window-btn.active {
+-    background: #4fc3f7 !important;
+-    color: #0d1b2a !important;
+-}
+\ No newline at end of file
++/* ============================================================
++   motywy/niebieski.css – Blue Theme
++   ============================================================ */
++
++:root {
++    --bg-primary: #0d1b2a;
++    --bg-secondary: #1b2a4a;
++    --bg-surface: #1a3a6a;
++    --bg-window: #0d1b2a;
++    --bg-taskbar: rgba(13, 27, 42, 0.92);
++    --bg-start: rgba(13, 27, 42, 0.97);
++    --text-primary: #e0e8f0;
++    --text-secondary: #8ab4f8;
++    --text-light: #ffffff;
++    --accent: #4fc3f7;
++    --accent-hover: #81d4fa;
++    --border-color: #1a3a6a;
++    --shadow: 0 8px 32px rgba(0, 20, 60, 0.6);
++    --window-title-bg: linear-gradient(135deg, #0d1b2a, #1a3a6a);
++    --scrollbar-track: #0d1b2a;
++    --scrollbar-thumb: #4fc3f7;
++}
++
++#wallpaper {
++    background: linear-gradient(135deg, #0a1628, #0d1b2a, #1a3a6a) !important;
++}
++
++#loginScreen {
++    background: radial-gradient(ellipse at center, #0d1b2a, #0a1628) !important;
++}
++
++.cortex-window .window-titlebar {
++    background: var(--window-title-bg) !important;
++}
++
++.calc-btn.op {
++    background: rgba(79, 195, 247, 0.15) !important;
++    color: #4fc3f7 !important;
++}
++.calc-btn.op:hover {
++    background: rgba(79, 195, 247, 0.3) !important;
++}
++
++.cal-grid .cal-day.today {
++    background: #4fc3f7 !important;
++    color: #0d1b2a !important;
++}
++
++.weather-wrap .weather-info .details div {
++    background: rgba(79, 195, 247, 0.06) !important;
++}
++
++.start-app-item:hover {
++    background: rgba(79, 195, 247, 0.1) !important;
++}
++
++.taskbar-window-btn.active {
++    background: #4fc3f7 !important;
++    color: #0d1b2a !important;
++}
++/* Blue theme polish */
++:root {
++    --focus-ring: #b3e5fc;
++}
