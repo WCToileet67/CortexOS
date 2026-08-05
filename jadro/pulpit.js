@@ -33,7 +33,6 @@ export const Desktop = {
                 launchApp(app.id);
             });
 
-            // Drag
             div.draggable = true;
             div.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', app.id);
@@ -46,19 +45,86 @@ export const Desktop = {
             container.appendChild(div);
         });
 
+        // ---- DODAJ IKONĘ INSTALACJI PWA ----
+        const installIcon = document.createElement('div');
+        installIcon.className = 'desktop-icon';
+        installIcon.dataset.appId = 'install';
+        installIcon.innerHTML = `
+            <span class="icon-img">📲</span>
+            <span class="icon-label">Instaluj</span>
+        `;
+        installIcon.addEventListener('dblclick', () => {
+            import('../main.js').then(({ installPWA, showToast }) => {
+                installPWA();
+            });
+        });
+        container.appendChild(installIcon);
+
+        // ---- DODAJ IKONĘ EKSPORTU ----
+        const exportIcon = document.createElement('div');
+        exportIcon.className = 'desktop-icon';
+        exportIcon.dataset.appId = 'export';
+        exportIcon.innerHTML = `
+            <span class="icon-img">💾</span>
+            <span class="icon-label">Eksport</span>
+        `;
+        exportIcon.addEventListener('dblclick', () => {
+            import('../main.js').then(({ exportData }) => {
+                exportData();
+            });
+        });
+        container.appendChild(exportIcon);
+
+        // ---- DODAJ IKONĘ IMPORTOWANIA ----
+        const importIcon = document.createElement('div');
+        importIcon.className = 'desktop-icon';
+        importIcon.dataset.appId = 'import';
+        importIcon.innerHTML = `
+            <span class="icon-img">📂</span>
+            <span class="icon-label">Import</span>
+        `;
+        importIcon.addEventListener('dblclick', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    import('../main.js').then(({ importData }) => {
+                        importData(file);
+                    });
+                }
+            });
+            input.click();
+        });
+        container.appendChild(importIcon);
+
+        // ---- DODAJ IKONĘ RESTARTU ----
+        const restartIcon = document.createElement('div');
+        restartIcon.className = 'desktop-icon';
+        restartIcon.dataset.appId = 'restart';
+        restartIcon.innerHTML = `
+            <span class="icon-img">🔄</span>
+            <span class="icon-label">Restart</span>
+        `;
+        restartIcon.addEventListener('dblclick', () => {
+            import('../main.js').then(({ restart }) => {
+                restart();
+            });
+        });
+        container.appendChild(restartIcon);
+
         // Drop target for reordering
         container.addEventListener('dragover', (e) => e.preventDefault());
         container.addEventListener('drop', (e) => {
             e.preventDefault();
             const id = e.dataTransfer.getData('text/plain');
             if (id) {
-                // reposition - just re-render
                 this.renderIcons();
                 showToast('📌', 'Icon position updated');
             }
         });
 
-        // Right-click on desktop icons
         container.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             const icon = e.target.closest('.desktop-icon');
@@ -136,7 +202,6 @@ export const Desktop = {
             const saved = localStorage.getItem('cortexos_icons');
             if (saved) {
                 iconPositions = JSON.parse(saved);
-                // Apply positions
                 const icons = document.querySelectorAll('.desktop-icon');
                 icons.forEach((icon) => {
                     const id = icon.dataset.appId;
@@ -154,8 +219,4 @@ export const Desktop = {
         icons.forEach((icon) => {
             const id = icon.dataset.appId;
             const rect = icon.getBoundingClientRect();
-            positions[id] = { x: rect.left, y: rect.top };
-        });
-        localStorage.setItem('cortexos_icons', JSON.stringify(positions));
-    },
-};
+            positions[id] = {
