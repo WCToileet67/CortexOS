@@ -1,28 +1,71 @@
-{
-    "name": "CortexOS",
-    "version": "1.0.0",
-    "description": "Professional browser-based operating system",
-    "author": "CortexOS Team",
-    "license": "MIT",
-    "settings": {
-        "theme": "ciemny",
-        "wallpaper": "default",
-        "language": "en",
-        "password": "admin"
-    },
-    "apps": [
-        "notatnik",
-        "eksplorator",
-        "kalkulator",
-        "rysunek",
-        "terminal",
-        "ustawienia",
-        "pogoda",
-        "kalendarz",
-        "muzyka",
-        "galeria",
-        "snake",
-        "quiz",
-        "arkusz"
-    ]
-}
+diff --git a/config.json b/config.json
+index c14470b6dc11e3bcab24e371c9ce6ec3a372b50f..51218fb3fcdcd4a012234fb705bf472229d9a352 100644
+--- a/config.json
++++ b/config.json
+@@ -1,28 +1,37 @@
+-{
+-    "name": "CortexOS",
+-    "version": "1.0.0",
+-    "description": "Professional browser-based operating system",
+-    "author": "CortexOS Team",
+-    "license": "MIT",
+-    "settings": {
+-        "theme": "ciemny",
+-        "wallpaper": "default",
+-        "language": "en",
+-        "password": "admin"
+-    },
+-    "apps": [
+-        "notatnik",
+-        "eksplorator",
+-        "kalkulator",
+-        "rysunek",
+-        "terminal",
+-        "ustawienia",
+-        "pogoda",
+-        "kalendarz",
+-        "muzyka",
+-        "galeria",
+-        "snake",
+-        "quiz",
+-        "arkusz"
+-    ]
+-}
+\ No newline at end of file
++{
++    "name": "CortexOS",
++    "version": "1.1.0",
++    "description": "Professional browser-based operating system",
++    "author": "CortexOS Team",
++    "license": "MIT",
++    "settings": {
++        "theme": "ciemny",
++        "wallpaper": "default",
++        "language": "en",
++        "password": "admin",
++        "reduceMotion": false
++    },
++    "apps": [
++        "notatnik",
++        "eksplorator",
++        "kalkulator",
++        "rysunek",
++        "terminal",
++        "ustawienia",
++        "pogoda",
++        "kalendarz",
++        "muzyka",
++        "galeria",
++        "snake",
++        "quiz",
++        "arkusz",
++        "gra",
++        "pliki",
++        "przypomnienia"
++    ],
++    "quality": {
++        "accessibility": true,
++        "localFirstStorage": true,
++        "moduleBasedApps": true
++    }
++}
