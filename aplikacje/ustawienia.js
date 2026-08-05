@@ -73,11 +73,8 @@ export default function Settings() {
 
     container.append(themeGroup, wallGroup, pwdGroup, langGroup, infoGroup);
 
-    // ⚠️ WAŻNE: Event listenery dodajemy DOPIERO PO tym, jak elementy są w DOM
-    // Używamy container.querySelector zamiast document.getElementById
-    // lub opóźniamy dodanie event listenerów
-
-    // Rozwiązanie 1: Użycie container.querySelector (polecane)
+    // ✅ UŻYWAJ container.querySelector ZAMIAST document.getElementById
+    // Theme
     const themeSelect = container.querySelector('#settingsTheme');
     if (themeSelect) {
         themeSelect.addEventListener('change', (e) => {
@@ -85,6 +82,7 @@ export default function Settings() {
         });
     }
 
+    // Wallpaper upload
     const wallpaperInput = container.querySelector('#settingsWallpaper');
     if (wallpaperInput) {
         wallpaperInput.addEventListener('change', (e) => {
@@ -100,6 +98,7 @@ export default function Settings() {
         });
     }
 
+    // Reset wallpaper
     const resetWallpaperBtn = container.querySelector('#resetWallpaperBtn');
     if (resetWallpaperBtn) {
         resetWallpaperBtn.addEventListener('click', () => {
@@ -114,6 +113,7 @@ export default function Settings() {
         });
     }
 
+    // Set password
     const setPasswordBtn = container.querySelector('#settingsSetPassword');
     if (setPasswordBtn) {
         setPasswordBtn.addEventListener('click', () => {
@@ -131,6 +131,7 @@ export default function Settings() {
         });
     }
 
+    // Language
     const languageSelect = container.querySelector('#settingsLanguage');
     if (languageSelect) {
         languageSelect.addEventListener('change', (e) => {
@@ -138,12 +139,13 @@ export default function Settings() {
         });
     }
 
+    // Reset all settings
     const resetBtn = container.querySelector('#resetSettingsBtn');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             if (confirm('Reset all settings to default?')) {
                 SystemSettings.reset();
-                // Reload settings display - odświeżamy UI
+                // Odśwież UI
                 const newSettings = SystemSettings.get();
                 const themeSel = container.querySelector('#settingsTheme');
                 if (themeSel) themeSel.value = newSettings.theme;
