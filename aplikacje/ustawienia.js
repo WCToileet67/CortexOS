@@ -3,7 +3,7 @@
 // ============================================================
 
 import { SystemSettings } from '../jadro/ustawieniaSystemowe.js';
-import { Core, saveSettings, showToast } from '../main.js';
+import { showToast } from '../main.js';
 
 export default function Settings() {
     const container = document.createElement('div');
@@ -74,25 +74,25 @@ export default function Settings() {
     container.append(themeGroup, wallGroup, pwdGroup, langGroup, infoGroup);
 
     // ============================================================
-    // WSZYSTKIE EVENT LISTENERY - używamy container.querySelector
+    // EVENT LISTENERY - DOPIERO TERAZ, PO DODANIU DO DOM
     // ============================================================
 
-    // 1. Theme
+    // Theme
     const themeSelect = container.querySelector('#settingsTheme');
     if (themeSelect) {
-        themeSelect.addEventListener('change', (e) => {
+        themeSelect.addEventListener('change', function(e) {
             SystemSettings.set('theme', e.target.value);
         });
     }
 
-    // 2. Wallpaper upload
+    // Wallpaper upload
     const wallpaperInput = container.querySelector('#settingsWallpaper');
     if (wallpaperInput) {
-        wallpaperInput.addEventListener('change', (e) => {
+        wallpaperInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = (ev) => {
+                reader.onload = function(ev) {
                     const dataUrl = ev.target.result;
                     SystemSettings.set('wallpaper', dataUrl);
                 };
@@ -101,25 +101,24 @@ export default function Settings() {
         });
     }
 
-    // 3. Reset wallpaper
+    // Reset wallpaper
     const resetWallpaperBtn = container.querySelector('#resetWallpaperBtn');
     if (resetWallpaperBtn) {
-        resetWallpaperBtn.addEventListener('click', () => {
+        resetWallpaperBtn.addEventListener('click', function() {
             SystemSettings.set('wallpaper', 'default');
             const wall = document.getElementById('wallpaper');
             if (wall) {
-                wall.style.backgroundImage =
-                    'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
+                wall.style.backgroundImage = 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
                 wall.style.backgroundSize = 'cover';
             }
             showToast('🖼️', 'Wallpaper reset to default');
         });
     }
 
-    // 4. Set password
+    // Set password
     const setPasswordBtn = container.querySelector('#settingsSetPassword');
     if (setPasswordBtn) {
-        setPasswordBtn.addEventListener('click', () => {
+        setPasswordBtn.addEventListener('click', function() {
             const input = container.querySelector('#settingsNewPassword');
             if (input) {
                 const val = input.value.trim();
@@ -134,30 +133,33 @@ export default function Settings() {
         });
     }
 
-    // 5. Language
+    // Language
     const languageSelect = container.querySelector('#settingsLanguage');
     if (languageSelect) {
-        languageSelect.addEventListener('change', (e) => {
+        languageSelect.addEventListener('change', function(e) {
             SystemSettings.set('language', e.target.value);
         });
     }
 
-    // 6. Reset all settings
+    // Reset all settings
     const resetBtn = container.querySelector('#resetSettingsBtn');
     if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
+        resetBtn.addEventListener('click', function() {
             if (confirm('Reset all settings to default?')) {
                 SystemSettings.reset();
+                
                 // Odśwież UI
                 const newSettings = SystemSettings.get();
                 const themeSel = container.querySelector('#settingsTheme');
                 if (themeSel) themeSel.value = newSettings.theme;
+                
                 const langSel = container.querySelector('#settingsLanguage');
                 if (langSel) langSel.value = newSettings.language;
+                
                 const infoDivs = infoGroup.querySelectorAll('.setting-info');
                 if (infoDivs.length >= 4) {
-                    infoDivs[2].textContent = `Theme: ${newSettings.theme}`;
-                    infoDivs[3].textContent = `Language: ${newSettings.language}`;
+                    infoDivs[2].textContent = 'Theme: ' + newSettings.theme;
+                    infoDivs[3].textContent = 'Language: ' + newSettings.language;
                 }
                 showToast('🔄', 'Settings reset to default');
             }
