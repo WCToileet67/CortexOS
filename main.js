@@ -381,13 +381,11 @@ function initDesktop() {
 
 // ---------- PWA INSTALLATION ----------
 function checkPWAInstallation() {
-    // Sprawdź, czy już jest zainstalowana jako PWA
     if (window.matchMedia('(display-mode: standalone)').matches) {
         console.log('CortexOS działa jako PWA!');
         return;
     }
     
-    // Nasłuchuj na możliwość instalacji
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         window.deferredPrompt = e;
@@ -408,9 +406,8 @@ export async function installPWA() {
         }
         window.deferredPrompt = null;
     } else {
-        showToast('ℹ️', 'Twoja przeglądarka nie obsługuje instalacji PWA');
-        // Alternatywnie otwórz instrukcję
-        window.open('https://github.com/twoja-nazwa/CortexOS', '_blank');
+        showToast('ℹ️', 'Kliknij przycisk instalacji w pasku adresu przeglądarki');
+        window.open('https://github.com/wctoileet67/CortexOS', '_blank');
     }
 }
 
@@ -649,6 +646,17 @@ export function importData(file) {
     reader.readAsText(file);
 }
 
+// ---------- SERVICE WORKER ----------
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/CortexOS/sw.js')
+        .then(registration => {
+            console.log('Service Worker registered:', registration);
+        })
+        .catch(error => {
+            console.error('Service Worker registration failed:', error);
+        });
+}
+
 // ---------- BOOT ----------
 document.addEventListener('DOMContentLoaded', () => {
     boot();
@@ -694,14 +702,3 @@ document.addEventListener('DOMContentLoaded', () => {
         installPWA,
     };
 });
-
-// ---------- SERVICE WORKER ----------
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/CortexOS/sw.js')
-        .then(registration => {
-            console.log('Service Worker registered:', registration);
-        })
-        .catch(error => {
-            console.error('Service Worker registration failed:', error);
-        });
-}
