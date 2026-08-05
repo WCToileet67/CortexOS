@@ -1,270 +1,176 @@
-diff --git a/aplikacje/galeria.js b/aplikacje/galeria.js
-index c3bafeb97dff4673aabf20994d07061f7e6bde1f..131e1ab9c79d232d9d36e2b965b84ab772e50b03 100644
---- a/aplikacje/galeria.js
-+++ b/aplikacje/galeria.js
-@@ -1,131 +1,133 @@
--// ============================================================
--// aplikacje/galeria.js – Gallery App
--// ============================================================
--
--export default function Gallery() {
--    const container = document.createElement('div');
--    container.style.cssText = 'padding:8px;';
--
--    let images = [];
--
--    // Load
--    try {
--        const saved = localStorage.getItem('cortexos_gallery');
--        if (saved) images = JSON.parse(saved);
--    } catch (_) { /* ignore */ }
--
--    function saveImages() {
--        try {
--            localStorage.setItem('cortexos_gallery', JSON.stringify(images));
--        } catch (_) { /* ignore */ }
--    }
--
--    const addSection = document.createElement('div');
--    addSection.className = 'gallery-add';
--    const urlInput = document.createElement('input');
--    urlInput.type = 'text';
--    urlInput.placeholder = 'Image URL...';
--    const addUrlBtn = document.createElement('button');
--    addUrlBtn.textContent = 'Add URL';
--    const fileInput = document.createElement('input');
--    fileInput.type = 'file';
--    fileInput.accept = 'image/*';
--    fileInput.multiple = true;
--    const fileLabel = document.createElement('button');
--    fileLabel.textContent = '📁 Choose Images';
--
--    fileLabel.addEventListener('click', () => fileInput.click());
--
--    addSection.append(urlInput, addUrlBtn, fileLabel, fileInput);
--
--    const grid = document.createElement('div');
--    grid.className = 'gallery-grid';
--
--    function render() {
--        grid.innerHTML = '';
--        if (images.length === 0) {
--            const empty = document.createElement('div');
--            empty.style.cssText =
--                'grid-column:1/-1;padding:40px;text-align:center;color:var(--text-secondary);';
--            empty.textContent = 'No images. Add some using URL or file upload.';
--            grid.appendChild(empty);
--            return;
--        }
--        images.forEach((img, idx) => {
--            const div = document.createElement('div');
--            div.className = 'gallery-item';
--            const imgEl = document.createElement('img');
--            imgEl.src = img;
--            imgEl.alt = `Image ${idx+1}`;
--            div.appendChild(imgEl);
--            div.addEventListener('click', () => {
--                // Fullscreen preview
--                openFullscreen(img);
--            });
--            div.addEventListener('contextmenu', (e) => {
--                e.preventDefault();
--                if (confirm('Remove this image?')) {
--                    images.splice(idx, 1);
--                    saveImages();
--                    render();
--                    import('../main.js').then(({ showToast }) => {
--                        showToast('🗑️', 'Image removed');
--                    });
--                }
--            });
--            grid.appendChild(div);
--        });
--    }
--
--    function openFullscreen(src) {
--        const overlay = document.createElement('div');
--        overlay.style.cssText =
--            'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
--        const img = document.createElement('img');
--        img.src = src;
--        img.style.cssText =
--            'max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.8);';
--        overlay.appendChild(img);
--        overlay.addEventListener('click', () => overlay.remove());
--        document.body.appendChild(overlay);
--    }
--
--    // Add URL
--    addUrlBtn.addEventListener('click', () => {
--        const url = urlInput.value.trim();
--        if (url) {
--            images.push(url);
--            saveImages();
--            render();
--            urlInput.value = '';
--            import('../main.js').then(({ showToast }) => {
--                showToast('🖼️', 'Image added from URL');
--            });
--        }
--    });
--
--    // Add files
--    fileInput.addEventListener('change', (e) => {
--        const files = e.target.files;
--        if (files) {
--            Array.from(files).forEach((file) => {
--                const reader = new FileReader();
--                reader.onload = (ev) => {
--                    images.push(ev.target.result);
--                    saveImages();
--                    render();
--                };
--                reader.readAsDataURL(file);
--            });
--            import('../main.js').then(({ showToast }) => {
--                showToast('🖼️', `${files.length} image(s) added`);
--            });
--        }
--        fileInput.value = '';
--    });
--
--    container.append(addSection, grid);
--    render();
--
--    return container;
--}
-\ No newline at end of file
-+// ============================================================
-+// aplikacje/galeria.js – Gallery App
-+// ============================================================
-+
-+export default function Gallery() {
-+    const container = document.createElement('div');
-+    container.style.cssText = 'padding:8px;';
-+    container.setAttribute('role', 'application');
-+    container.setAttribute('aria-label', 'Gallery');
-+
-+    let images = [];
-+
-+    // Load
-+    try {
-+        const saved = localStorage.getItem('cortexos_gallery');
-+        if (saved) images = JSON.parse(saved);
-+    } catch (_) { /* ignore */ }
-+
-+    function saveImages() {
-+        try {
-+            localStorage.setItem('cortexos_gallery', JSON.stringify(images));
-+        } catch (_) { /* ignore */ }
-+    }
-+
-+    const addSection = document.createElement('div');
-+    addSection.className = 'gallery-add';
-+    const urlInput = document.createElement('input');
-+    urlInput.type = 'text';
-+    urlInput.placeholder = 'Image URL...';
-+    const addUrlBtn = document.createElement('button');
-+    addUrlBtn.textContent = 'Add URL';
-+    const fileInput = document.createElement('input');
-+    fileInput.type = 'file';
-+    fileInput.accept = 'image/*';
-+    fileInput.multiple = true;
-+    const fileLabel = document.createElement('button');
-+    fileLabel.textContent = '📁 Choose Images';
-+
-+    fileLabel.addEventListener('click', () => fileInput.click());
-+
-+    addSection.append(urlInput, addUrlBtn, fileLabel, fileInput);
-+
-+    const grid = document.createElement('div');
-+    grid.className = 'gallery-grid';
-+
-+    function render() {
-+        grid.innerHTML = '';
-+        if (images.length === 0) {
-+            const empty = document.createElement('div');
-+            empty.style.cssText =
-+                'grid-column:1/-1;padding:40px;text-align:center;color:var(--text-secondary);';
-+            empty.textContent = 'No images. Add some using URL or file upload.';
-+            grid.appendChild(empty);
-+            return;
-+        }
-+        images.forEach((img, idx) => {
-+            const div = document.createElement('div');
-+            div.className = 'gallery-item';
-+            const imgEl = document.createElement('img');
-+            imgEl.src = img;
-+            imgEl.alt = `Image ${idx+1}`;
-+            div.appendChild(imgEl);
-+            div.addEventListener('click', () => {
-+                // Fullscreen preview
-+                openFullscreen(img);
-+            });
-+            div.addEventListener('contextmenu', (e) => {
-+                e.preventDefault();
-+                if (confirm('Remove this image?')) {
-+                    images.splice(idx, 1);
-+                    saveImages();
-+                    render();
-+                    import('../main.js').then(({ showToast }) => {
-+                        showToast('🗑️', 'Image removed');
-+                    });
-+                }
-+            });
-+            grid.appendChild(div);
-+        });
-+    }
-+
-+    function openFullscreen(src) {
-+        const overlay = document.createElement('div');
-+        overlay.style.cssText =
-+            'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
-+        const img = document.createElement('img');
-+        img.src = src;
-+        img.style.cssText =
-+            'max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.8);';
-+        overlay.appendChild(img);
-+        overlay.addEventListener('click', () => overlay.remove());
-+        document.body.appendChild(overlay);
-+    }
-+
-+    // Add URL
-+    addUrlBtn.addEventListener('click', () => {
-+        const url = urlInput.value.trim();
-+        if (url) {
-+            images.push(url);
-+            saveImages();
-+            render();
-+            urlInput.value = '';
-+            import('../main.js').then(({ showToast }) => {
-+                showToast('🖼️', 'Image added from URL');
-+            });
-+        }
-+    });
-+
-+    // Add files
-+    fileInput.addEventListener('change', (e) => {
-+        const files = e.target.files;
-+        if (files) {
-+            Array.from(files).forEach((file) => {
-+                const reader = new FileReader();
-+                reader.onload = (ev) => {
-+                    images.push(ev.target.result);
-+                    saveImages();
-+                    render();
-+                };
-+                reader.readAsDataURL(file);
-+            });
-+            import('../main.js').then(({ showToast }) => {
-+                showToast('🖼️', `${files.length} image(s) added`);
-+            });
-+        }
-+        fileInput.value = '';
-+    });
-+
-+    container.append(addSection, grid);
-+    render();
-+
-+    return container;
-+}
+// ============================================================
+// aplikacje/arkusz.js – Spreadsheet App
+// ============================================================
+
+export default function Spreadsheet() {
+    const container = document.createElement('div');
+    container.className = 'spreadsheet-wrap';
+    container.setAttribute('role', 'application');
+    container.setAttribute('aria-label', 'Spreadsheet');
+
+    // Stan danych
+    const STORAGE_KEY = 'cortexos_spreadsheet';
+    let data = [];
+    const ROWS = 20;
+    const COLS = 10;
+
+    // Załaduj dane lub utwórz puste
+    function loadData() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                data = JSON.parse(saved);
+                return;
+            }
+        } catch (_) { /* ignore */ }
+        
+        // Inicjalizacja pustymi danymi
+        data = [];
+        for (let r = 0; r < ROWS; r++) {
+            data[r] = [];
+            for (let c = 0; c < COLS; c++) {
+                data[r][c] = '';
+            }
+        }
+    }
+
+    function saveData() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (_) { /* ignore */ }
+    }
+
+    loadData();
+
+    // Toolbar
+    const toolbar = document.createElement('div');
+    toolbar.className = 'spreadsheet-toolbar';
+
+    const addRowBtn = document.createElement('button');
+    addRowBtn.textContent = '➕ Add Row';
+    const addColBtn = document.createElement('button');
+    addColBtn.textContent = '➕ Add Column';
+    const clearBtn = document.createElement('button');
+    clearBtn.textContent = '🗑️ Clear All';
+
+    toolbar.append(addRowBtn, addColBtn, clearBtn);
+
+    // Tabela
+    const tableWrap = document.createElement('div');
+    tableWrap.style.cssText = 'overflow:auto;max-height:400px;';
+
+    const table = document.createElement('table');
+    tableWrap.appendChild(table);
+
+    function render() {
+        table.innerHTML = '';
+        
+        // Nagłówki kolumn (A, B, C, ...)
+        const headerRow = document.createElement('tr');
+        const corner = document.createElement('th');
+        corner.textContent = '';
+        headerRow.appendChild(corner);
+        
+        for (let c = 0; c < data[0]?.length || COLS; c++) {
+            const th = document.createElement('th');
+            th.textContent = String.fromCharCode(65 + c);
+            headerRow.appendChild(th);
+        }
+        table.appendChild(headerRow);
+
+        // Wiersze z danymi
+        for (let r = 0; r < data.length; r++) {
+            const tr = document.createElement('tr');
+            
+            // Nagłówek wiersza (numer)
+            const th = document.createElement('th');
+            th.textContent = r + 1;
+            tr.appendChild(th);
+
+            // Komórki
+            for (let c = 0; c < data[r].length; c++) {
+                const td = document.createElement('td');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = data[r][c] || '';
+                input.dataset.row = r;
+                input.dataset.col = c;
+                
+                input.addEventListener('input', (e) => {
+                    const row = parseInt(e.target.dataset.row);
+                    const col = parseInt(e.target.dataset.col);
+                    data[row][col] = e.target.value;
+                    saveData();
+                });
+
+                // Obsługa klawiszy do nawigacji
+                input.addEventListener('keydown', (e) => {
+                    const row = parseInt(e.target.dataset.row);
+                    const col = parseInt(e.target.dataset.col);
+                    let newRow = row;
+                    let newCol = col;
+
+                    if (e.key === 'ArrowDown') newRow = Math.min(row + 1, data.length - 1);
+                    else if (e.key === 'ArrowUp') newRow = Math.max(row - 1, 0);
+                    else if (e.key === 'ArrowRight') newCol = Math.min(col + 1, data[row].length - 1);
+                    else if (e.key === 'ArrowLeft') newCol = Math.max(col - 1, 0);
+                    else if (e.key === 'Tab') {
+                        e.preventDefault();
+                        newCol = e.shiftKey ? Math.max(col - 1, 0) : Math.min(col + 1, data[row].length - 1);
+                    }
+
+                    if (newRow !== row || newCol !== col) {
+                        const inputs = table.querySelectorAll('input');
+                        const target = Array.from(inputs).find(
+                            inp => parseInt(inp.dataset.row) === newRow && parseInt(inp.dataset.col) === newCol
+                        );
+                        if (target) target.focus();
+                    }
+                });
+
+                td.appendChild(input);
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+    }
+
+    // Dodaj wiersz
+    addRowBtn.addEventListener('click', () => {
+        const newRow = [];
+        const cols = data[0]?.length || COLS;
+        for (let c = 0; c < cols; c++) {
+            newRow[c] = '';
+        }
+        data.push(newRow);
+        saveData();
+        render();
+    });
+
+    // Dodaj kolumnę
+    addColBtn.addEventListener('click', () => {
+        for (let r = 0; r < data.length; r++) {
+            data[r].push('');
+        }
+        saveData();
+        render();
+    });
+
+    // Wyczyść wszystkie dane
+    clearBtn.addEventListener('click', () => {
+        if (confirm('Clear all spreadsheet data?')) {
+            for (let r = 0; r < data.length; r++) {
+                for (let c = 0; c < data[r].length; c++) {
+                    data[r][c] = '';
+                }
+            }
+            saveData();
+            render();
+        }
+    });
+
+    container.append(toolbar, tableWrap);
+    render();
+
+    return container;
+}
