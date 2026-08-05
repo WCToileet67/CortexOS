@@ -45,22 +45,7 @@ export const Desktop = {
             container.appendChild(div);
         });
 
-        // ---- DODAJ IKONĘ INSTALACJI PWA ----
-        const installIcon = document.createElement('div');
-        installIcon.className = 'desktop-icon';
-        installIcon.dataset.appId = 'install';
-        installIcon.innerHTML = `
-            <span class="icon-img">📲</span>
-            <span class="icon-label">Instaluj</span>
-        `;
-        installIcon.addEventListener('dblclick', () => {
-            import('../main.js').then(({ installPWA, showToast }) => {
-                installPWA();
-            });
-        });
-        container.appendChild(installIcon);
-
-        // ---- DODAJ IKONĘ EKSPORTU ----
+        // ---- IKONA EKSPORTU ----
         const exportIcon = document.createElement('div');
         exportIcon.className = 'desktop-icon';
         exportIcon.dataset.appId = 'export';
@@ -75,7 +60,7 @@ export const Desktop = {
         });
         container.appendChild(exportIcon);
 
-        // ---- DODAJ IKONĘ IMPORTOWANIA ----
+        // ---- IKONA IMPORTOWANIA ----
         const importIcon = document.createElement('div');
         importIcon.className = 'desktop-icon';
         importIcon.dataset.appId = 'import';
@@ -99,7 +84,7 @@ export const Desktop = {
         });
         container.appendChild(importIcon);
 
-        // ---- DODAJ IKONĘ RESTARTU ----
+        // ---- IKONA RESTARTU ----
         const restartIcon = document.createElement('div');
         restartIcon.className = 'desktop-icon';
         restartIcon.dataset.appId = 'restart';
