@@ -1,0 +1,174 @@
+/* ============================================================
+   motywy/jasny.css – Light Theme
+   ============================================================ */
+
+:root {
+    --bg-primary: #f0f2f5;
+    --bg-secondary: #ffffff;
+    --bg-surface: #e8eaed;
+    --bg-window: #ffffff;
+    --bg-taskbar: rgba(240, 242, 245, 0.92);
+    --bg-start: rgba(255, 255, 255, 0.97);
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-light: #1a1a2e;
+    --accent: #1a73e8;
+    --accent-hover: #4285f4;
+    --border-color: #d0d4dc;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    --window-title-bg: linear-gradient(135deg, #e8eaed, #d0d4dc);
+    --scrollbar-track: #e8eaed;
+    --scrollbar-thumb: #1a73e8;
+}
+
+#wallpaper {
+    background: linear-gradient(135deg, #e0e5ec, #f0f2f5) !important;
+}
+
+#loginScreen {
+    background: radial-gradient(ellipse at center, #e8eaed, #d0d4dc) !important;
+}
+
+.cortex-window .window-titlebar {
+    background: var(--window-title-bg) !important;
+}
+
+.cortex-window .window-titlebar .win-title {
+    color: #1a1a2e !important;
+}
+
+.terminal-wrap {
+    background: #1a1a2e !important;
+}
+.terminal-wrap .terminal-input-line input {
+    color: #0f0 !important;
+}
+
+.notepad-textarea {
+    color: #1a1a2e !important;
+}
+
+.calc-display {
+    background: rgba(0, 0, 0, 0.08) !important;
+    color: #1a1a2e !important;
+}
+.calc-display .calc-expr {
+    color: #5a5a7a !important;
+}
+
+.paint-canvas {
+    background: #fff !important;
+}
+
+.snake-game canvas {
+    background: #1a1a2e !important;
+}
+
+.gallery-item {
+    border-color: #d0d4dc !important;
+}
+
+.quiz-wrap .quiz-options button {
+    background: rgba(0, 0, 0, 0.04) !important;
+    color: #1a1a2e !important;
+}
+.quiz-wrap .quiz-options button:hover {
+    background: rgba(0, 0, 0, 0.08) !important;
+}
+
+.settings-group input,
+.settings-group select {
+    background: rgba(0, 0, 0, 0.04) !important;
+    color: #1a1a2e !important;
+}
+
+.explorer-item {
+    color: #1a1a2e !important;
+}
+.explorer-item:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+.explorer-path {
+    color: #1a1a2e !important;
+}
+
+.start-app-item {
+    color: #1a1a2e !important;
+}
+.start-app-item:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+#taskbar {
+    background: var(--bg-taskbar) !important;
+    border-top-color: #d0d4dc !important;
+}
+#startBtn {
+    color: #1a1a2e !important;
+}
+#startBtn:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+#clockDisplay {
+    color: #1a1a2e !important;
+}
+
+.taskbar-window-btn {
+    color: #1a1a2e !important;
+}
+.taskbar-window-btn:hover {
+    background: rgba(0, 0, 0, 0.06) !important;
+}
+
+#notifCenter {
+    background: #ffffff !important;
+    border-color: #d0d4dc !important;
+}
+#notifCenterHeader {
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-bottom-color: #d0d4dc !important;
+}
+.notif-center-item {
+    border-bottom-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.toast {
+    background: #ffffff !important;
+    border-color: #d0d4dc !important;
+    color: #1a1a2e !important;
+}
+
+.context-menu {
+    background: #ffffff !important;
+    border-color: #d0d4dc !important;
+}
+.context-menu div {
+    color: #1a1a2e !important;
+}
+.context-menu div:hover {
+    background: var(--accent) !important;
+    color: #fff !important;
+}
+
+.calc-btn {
+    color: #1a1a2e !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+.calc-btn:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.music-player .mp-playlist .mp-track {
+    color: #1a1a2e !important;
+}
+.music-player .mp-playlist .mp-track:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.cal-grid .cal-day:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+.cal-grid .cal-day.other-month {
+    color: #a0a0b8 !important;
+}

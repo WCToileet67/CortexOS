@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CortexOS</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- BOOT SCREEN -->
+    <div id="bootScreen">
+        <div id="bootLogo">CORTEX<span>OS</span></div>
+        <div id="bootProgressWrap">
+            <div id="bootProgressBar"></div>
+        </div>
+        <div id="bootStatus">Loading system...</div>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" style="display:none;">
+        <div id="loginBox">
+            <div id="loginLogo">CORTEX<span>OS</span></div>
+            <div id="loginSub">enter your password</div>
+            <input type="password" id="loginPassword" placeholder="Password" autofocus />
+            <button id="loginBtn">Log In</button>
+            <button id="shutdownBtn">Shut Down</button>
+            <div id="loginError"></div>
+        </div>
+    </div>
+
+    <!-- DESKTOP -->
+    <div id="desktop" style="display:none;">
+        <!-- Wallpaper -->
+        <div id="wallpaper"></div>
+
+        <!-- Desktop Icons -->
+        <div id="desktopIcons"></div>
+
+        <!-- Desktop Context Menu -->
+        <div id="desktopContextMenu" class="context-menu" style="display:none;">
+            <div data-action="refresh">Refresh</div>
+            <div data-action="changeWallpaper">Change Wallpaper</div>
+            <div data-action="personalize">Personalize</div>
+        </div>
+
+        <!-- Taskbar -->
+        <div id="taskbar">
+            <button id="startBtn">Start</button>
+            <div id="taskbarWindows"></div>
+            <div id="taskbarTray">
+                <span id="notifIcon">🔔</span>
+                <span id="volumeIcon">🔊</span>
+                <span id="clockDisplay"></span>
+            </div>
+        </div>
+
+        <!-- Start Menu -->
+        <div id="startMenu" style="display:none;">
+            <div id="startSearchWrap">
+                <input type="text" id="startSearch" placeholder="Search applications..." />
+            </div>
+            <div id="startPinned">
+                <div class="start-section-title">Pinned</div>
+                <div id="startPinnedList"></div>
+            </div>
+            <div id="startAllApps">
+                <div class="start-section-title">All Apps</div>
+                <div id="startAppList"></div>
+            </div>
+            <div id="startPower">
+                <button data-action="restart">Restart</button>
+                <button data-action="shutdown">Shut Down</button>
+                <button data-action="sleep">Sleep</button>
+            </div>
+        </div>
+
+        <!-- Notification Center -->
+        <div id="notifCenter" style="display:none;">
+            <div id="notifCenterHeader">
+                <span>Notifications</span>
+                <button id="notifClearAll">Clear All</button>
+                <button id="notifClose">✕</button>
+            </div>
+            <div id="notifCenterList"></div>
+        </div>
+
+        <!-- Toast Container -->
+        <div id="toastContainer"></div>
+    </div>
+
+    <!-- Window Container -->
+    <div id="windowContainer"></div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "./jadro/": "./jadro/",
+                "./aplikacje/": "./aplikacje/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

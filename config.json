@@ -1,0 +1,28 @@
+{
+    "name": "CortexOS",
+    "version": "1.0.0",
+    "description": "Professional browser-based operating system",
+    "author": "CortexOS Team",
+    "license": "MIT",
+    "settings": {
+        "theme": "ciemny",
+        "wallpaper": "default",
+        "language": "en",
+        "password": "admin"
+    },
+    "apps": [
+        "notatnik",
+        "eksplorator",
+        "kalkulator",
+        "rysunek",
+        "terminal",
+        "ustawienia",
+        "pogoda",
+        "kalendarz",
+        "muzyka",
+        "galeria",
+        "snake",
+        "quiz",
+        "arkusz"
+    ]
+}
