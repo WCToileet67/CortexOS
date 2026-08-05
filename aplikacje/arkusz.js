@@ -1,148 +1,270 @@
-
-// ============================================================
-// aplikacje/arkusz.js – Spreadsheet App
-// ============================================================
-
-export default function Spreadsheet() {
-    const container = document.createElement('div');
-    container.className = 'spreadsheet-wrap';
-
-    const toolbar = document.createElement('div');
-    toolbar.className = 'spreadsheet-toolbar';
-    const sumBtn = document.createElement('button');
-    sumBtn.textContent = 'Σ Sum Selected';
-    const clearBtn = document.createElement('button');
-    clearBtn.textContent = '🗑️ Clear All';
-    const saveBtn = document.createElement('button');
-    saveBtn.textContent = '💾 Save';
-    toolbar.append(sumBtn, clearBtn, saveBtn);
-
-    const tableWrap = document.createElement('div');
-    tableWrap.style.cssText = 'overflow:auto;max-height:400px;';
-
-    const table = document.createElement('table');
-    const ROWS = 10;
-    const COLS = 10;
-
-    // Load saved data
-    let data = [];
-    try {
-        const saved = localStorage.getItem('cortexos_spreadsheet');
-        if (saved) data = JSON.parse(saved);
-    } catch (_) { /* ignore */ }
-
-    if (!data || data.length === 0) {
-        data = Array.from({ length: ROWS }, () =>
-            Array.from({ length: COLS }, () => '')
-        );
-    }
-
-    function render() {
-        table.innerHTML = '';
-        // Header row
-        const thead = document.createElement('thead');
-        const hRow = document.createElement('tr');
-        const corner = document.createElement('th');
-        corner.textContent = '';
-        hRow.appendChild(corner);
-        for (let c = 0; c < COLS; c++) {
-            const th = document.createElement('th');
-            th.textContent = String.fromCharCode(65 + c);
-            hRow.appendChild(th);
-        }
-        thead.appendChild(hRow);
-        table.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-        for (let r = 0; r < ROWS; r++) {
-            const tr = document.createElement('tr');
-            const th = document.createElement('th');
-            th.textContent = r + 1;
-            tr.appendChild(th);
-            for (let c = 0; c < COLS; c++) {
-                const td = document.createElement('td');
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.value = data[r]?.[c] ?? '';
-                input.dataset.r = r;
-                input.dataset.c = c;
-                input.addEventListener('input', (e) => {
-                    data[r][c] = e.target.value;
-                });
-                td.appendChild(input);
-                tr.appendChild(td);
-            }
-            tbody.appendChild(tr);
-        }
-        table.appendChild(tbody);
-        tableWrap.innerHTML = '';
-        tableWrap.appendChild(table);
-    }
-
-    render();
-
-    // Sum selected: finds all inputs with content and sums numbers
-    sumBtn.addEventListener('click', () => {
-        let sum = 0;
-        const inputs = table.querySelectorAll('input');
-        inputs.forEach((inp) => {
-            const val = inp.value.trim();
-            if (val && !isNaN(val)) {
-                sum += parseFloat(val);
-            }
-        });
-        import('../main.js').then(({ showToast }) => {
-            showToast('Σ', `Sum: ${sum}`);
-        });
-    });
-
-    clearBtn.addEventListener('click', () => {
-        if (confirm('Clear all spreadsheet data?')) {
-            data = Array.from({ length: ROWS }, () =>
-                Array.from({ length: COLS }, () => '')
-            );
-            render();
-            import('../main.js').then(({ showToast }) => {
-                showToast('🗑️', 'Spreadsheet cleared');
-            });
-        }
-    });
-
-    saveBtn.addEventListener('click', () => {
-        // Gather current data
-        const inputs = table.querySelectorAll('input');
-        inputs.forEach((inp) => {
-            const r = parseInt(inp.dataset.r);
-            const c = parseInt(inp.dataset.c);
-            if (!data[r]) data[r] = [];
-            data[r][c] = inp.value;
-        });
-        try {
-            localStorage.setItem('cortexos_spreadsheet', JSON.stringify(data));
-            import('../main.js').then(({ showToast }) => {
-                showToast('💾', 'Spreadsheet saved!');
-            });
-        } catch (_) { /* ignore */ }
-    });
-
-    // Auto-save on change (debounced)
-    let saveTimer = null;
-    table.addEventListener('input', () => {
-        clearTimeout(saveTimer);
-        saveTimer = setTimeout(() => {
-            const inputs = table.querySelectorAll('input');
-            inputs.forEach((inp) => {
-                const r = parseInt(inp.dataset.r);
-                const c = parseInt(inp.dataset.c);
-                if (!data[r]) data[r] = [];
-                data[r][c] = inp.value;
-            });
-            try {
-                localStorage.setItem('cortexos_spreadsheet', JSON.stringify(data));
-            } catch (_) { /* ignore */ }
-        }, 1000);
-    });
-
-    container.append(toolbar, tableWrap);
-    return container;
-}
+diff --git a/aplikacje/galeria.js b/aplikacje/galeria.js
+index c3bafeb97dff4673aabf20994d07061f7e6bde1f..131e1ab9c79d232d9d36e2b965b84ab772e50b03 100644
+--- a/aplikacje/galeria.js
++++ b/aplikacje/galeria.js
+@@ -1,131 +1,133 @@
+-// ============================================================
+-// aplikacje/galeria.js – Gallery App
+-// ============================================================
+-
+-export default function Gallery() {
+-    const container = document.createElement('div');
+-    container.style.cssText = 'padding:8px;';
+-
+-    let images = [];
+-
+-    // Load
+-    try {
+-        const saved = localStorage.getItem('cortexos_gallery');
+-        if (saved) images = JSON.parse(saved);
+-    } catch (_) { /* ignore */ }
+-
+-    function saveImages() {
+-        try {
+-            localStorage.setItem('cortexos_gallery', JSON.stringify(images));
+-        } catch (_) { /* ignore */ }
+-    }
+-
+-    const addSection = document.createElement('div');
+-    addSection.className = 'gallery-add';
+-    const urlInput = document.createElement('input');
+-    urlInput.type = 'text';
+-    urlInput.placeholder = 'Image URL...';
+-    const addUrlBtn = document.createElement('button');
+-    addUrlBtn.textContent = 'Add URL';
+-    const fileInput = document.createElement('input');
+-    fileInput.type = 'file';
+-    fileInput.accept = 'image/*';
+-    fileInput.multiple = true;
+-    const fileLabel = document.createElement('button');
+-    fileLabel.textContent = '📁 Choose Images';
+-
+-    fileLabel.addEventListener('click', () => fileInput.click());
+-
+-    addSection.append(urlInput, addUrlBtn, fileLabel, fileInput);
+-
+-    const grid = document.createElement('div');
+-    grid.className = 'gallery-grid';
+-
+-    function render() {
+-        grid.innerHTML = '';
+-        if (images.length === 0) {
+-            const empty = document.createElement('div');
+-            empty.style.cssText =
+-                'grid-column:1/-1;padding:40px;text-align:center;color:var(--text-secondary);';
+-            empty.textContent = 'No images. Add some using URL or file upload.';
+-            grid.appendChild(empty);
+-            return;
+-        }
+-        images.forEach((img, idx) => {
+-            const div = document.createElement('div');
+-            div.className = 'gallery-item';
+-            const imgEl = document.createElement('img');
+-            imgEl.src = img;
+-            imgEl.alt = `Image ${idx+1}`;
+-            div.appendChild(imgEl);
+-            div.addEventListener('click', () => {
+-                // Fullscreen preview
+-                openFullscreen(img);
+-            });
+-            div.addEventListener('contextmenu', (e) => {
+-                e.preventDefault();
+-                if (confirm('Remove this image?')) {
+-                    images.splice(idx, 1);
+-                    saveImages();
+-                    render();
+-                    import('../main.js').then(({ showToast }) => {
+-                        showToast('🗑️', 'Image removed');
+-                    });
+-                }
+-            });
+-            grid.appendChild(div);
+-        });
+-    }
+-
+-    function openFullscreen(src) {
+-        const overlay = document.createElement('div');
+-        overlay.style.cssText =
+-            'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+-        const img = document.createElement('img');
+-        img.src = src;
+-        img.style.cssText =
+-            'max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.8);';
+-        overlay.appendChild(img);
+-        overlay.addEventListener('click', () => overlay.remove());
+-        document.body.appendChild(overlay);
+-    }
+-
+-    // Add URL
+-    addUrlBtn.addEventListener('click', () => {
+-        const url = urlInput.value.trim();
+-        if (url) {
+-            images.push(url);
+-            saveImages();
+-            render();
+-            urlInput.value = '';
+-            import('../main.js').then(({ showToast }) => {
+-                showToast('🖼️', 'Image added from URL');
+-            });
+-        }
+-    });
+-
+-    // Add files
+-    fileInput.addEventListener('change', (e) => {
+-        const files = e.target.files;
+-        if (files) {
+-            Array.from(files).forEach((file) => {
+-                const reader = new FileReader();
+-                reader.onload = (ev) => {
+-                    images.push(ev.target.result);
+-                    saveImages();
+-                    render();
+-                };
+-                reader.readAsDataURL(file);
+-            });
+-            import('../main.js').then(({ showToast }) => {
+-                showToast('🖼️', `${files.length} image(s) added`);
+-            });
+-        }
+-        fileInput.value = '';
+-    });
+-
+-    container.append(addSection, grid);
+-    render();
+-
+-    return container;
+-}
+\ No newline at end of file
++// ============================================================
++// aplikacje/galeria.js – Gallery App
++// ============================================================
++
++export default function Gallery() {
++    const container = document.createElement('div');
++    container.style.cssText = 'padding:8px;';
++    container.setAttribute('role', 'application');
++    container.setAttribute('aria-label', 'Gallery');
++
++    let images = [];
++
++    // Load
++    try {
++        const saved = localStorage.getItem('cortexos_gallery');
++        if (saved) images = JSON.parse(saved);
++    } catch (_) { /* ignore */ }
++
++    function saveImages() {
++        try {
++            localStorage.setItem('cortexos_gallery', JSON.stringify(images));
++        } catch (_) { /* ignore */ }
++    }
++
++    const addSection = document.createElement('div');
++    addSection.className = 'gallery-add';
++    const urlInput = document.createElement('input');
++    urlInput.type = 'text';
++    urlInput.placeholder = 'Image URL...';
++    const addUrlBtn = document.createElement('button');
++    addUrlBtn.textContent = 'Add URL';
++    const fileInput = document.createElement('input');
++    fileInput.type = 'file';
++    fileInput.accept = 'image/*';
++    fileInput.multiple = true;
++    const fileLabel = document.createElement('button');
++    fileLabel.textContent = '📁 Choose Images';
++
++    fileLabel.addEventListener('click', () => fileInput.click());
++
++    addSection.append(urlInput, addUrlBtn, fileLabel, fileInput);
++
++    const grid = document.createElement('div');
++    grid.className = 'gallery-grid';
++
++    function render() {
++        grid.innerHTML = '';
++        if (images.length === 0) {
++            const empty = document.createElement('div');
++            empty.style.cssText =
++                'grid-column:1/-1;padding:40px;text-align:center;color:var(--text-secondary);';
++            empty.textContent = 'No images. Add some using URL or file upload.';
++            grid.appendChild(empty);
++            return;
++        }
++        images.forEach((img, idx) => {
++            const div = document.createElement('div');
++            div.className = 'gallery-item';
++            const imgEl = document.createElement('img');
++            imgEl.src = img;
++            imgEl.alt = `Image ${idx+1}`;
++            div.appendChild(imgEl);
++            div.addEventListener('click', () => {
++                // Fullscreen preview
++                openFullscreen(img);
++            });
++            div.addEventListener('contextmenu', (e) => {
++                e.preventDefault();
++                if (confirm('Remove this image?')) {
++                    images.splice(idx, 1);
++                    saveImages();
++                    render();
++                    import('../main.js').then(({ showToast }) => {
++                        showToast('🗑️', 'Image removed');
++                    });
++                }
++            });
++            grid.appendChild(div);
++        });
++    }
++
++    function openFullscreen(src) {
++        const overlay = document.createElement('div');
++        overlay.style.cssText =
++            'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;';
++        const img = document.createElement('img');
++        img.src = src;
++        img.style.cssText =
++            'max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.8);';
++        overlay.appendChild(img);
++        overlay.addEventListener('click', () => overlay.remove());
++        document.body.appendChild(overlay);
++    }
++
++    // Add URL
++    addUrlBtn.addEventListener('click', () => {
++        const url = urlInput.value.trim();
++        if (url) {
++            images.push(url);
++            saveImages();
++            render();
++            urlInput.value = '';
++            import('../main.js').then(({ showToast }) => {
++                showToast('🖼️', 'Image added from URL');
++            });
++        }
++    });
++
++    // Add files
++    fileInput.addEventListener('change', (e) => {
++        const files = e.target.files;
++        if (files) {
++            Array.from(files).forEach((file) => {
++                const reader = new FileReader();
++                reader.onload = (ev) => {
++                    images.push(ev.target.result);
++                    saveImages();
++                    render();
++                };
++                reader.readAsDataURL(file);
++            });
++            import('../main.js').then(({ showToast }) => {
++                showToast('🖼️', `${files.length} image(s) added`);
++            });
++        }
++        fileInput.value = '';
++    });
++
++    container.append(addSection, grid);
++    render();
++
++    return container;
++}
